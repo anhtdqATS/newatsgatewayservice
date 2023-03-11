@@ -7,10 +7,14 @@ import {
   mdiSquareEditOutline,
   mdiTable,
   mdiViewList,
-  mdiTelevisionGuide,
+  mdiInformationOutline,
   mdiPalette,
   mdiBookCogOutline,
   mdiArrangeBringForward,
+  mdiVpn,
+  mdiSignalCellular2,
+  mdiLan,
+  mdiCogOutline,
 } from "@mdi/js";
 
 export default [
@@ -49,36 +53,14 @@ export default [
       },
     ],
   },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/tables",
-    label: "Tables",
-    icon: mdiTable,
-  },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/forms",
-    label: "Forms",
-    icon: mdiSquareEditOutline,
-  },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/ui",
-    label: "UI",
-    icon: mdiTelevisionGuide,
-  },
+
   {
     permissions: ["admin", "engineer"],
     to: "/forwarder",
     label: "Forwarder",
     icon: mdiArrangeBringForward,
   },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/",
-    label: "Styles",
-    icon: mdiPalette,
-  },
+
   {
     permissions: ["admin", "engineer"],
     to: "/profile",
@@ -87,28 +69,18 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
-    to: "/",
-    label: "Login",
-    icon: mdiLock,
-  },
-  {
-    permissions: ["admin", "engineer"],
-    to: "/error",
-    label: "Error",
-    icon: mdiAlertCircle,
-  },
-  {
-    permissions: ["admin", "engineer"],
-    label: "Dropdown",
-    icon: mdiViewList,
+    label: "Information",
+    icon: mdiInformationOutline,
     menu: [
       {
         permissions: ["admin", "engineer"],
-        label: "Item One",
+        to: "/About",
+        label: "About",
       },
       {
         permissions: ["admin", "engineer"],
-        label: "Item Two",
+        to: "/license",
+        label: "License",
       },
     ],
   },

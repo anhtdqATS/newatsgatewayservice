@@ -30,6 +30,7 @@ const rules = reactive({
 const submit = () => {
   baseForm.value.validate((valid, fields) => {
     if (valid) {
+      openFullScreenLoading();
       login();
     } else {
       console.log("error submit!", fields);
@@ -42,7 +43,6 @@ const login = () => {
     .login(loginForm)
     .then((res) => {
       if (typeof localStorage !== "undefined") {
-        openFullScreenLoading();
         localStorage.setItem(
           "dataLogin",
           JSON.stringify({
@@ -55,16 +55,19 @@ const login = () => {
       loginApi.setAuthorizationHeaders(res.data);
       setTimeout(() => {
         router.push("/dashboard");
+        loading.close();
       }, 2000);
     })
     .catch((err) => {
+      loading.close();
       openNotification();
     });
 };
 
 //login success
+var loading = null;
 const openFullScreenLoading = () => {
-  const loading = ElLoading.service({
+  loading = ElLoading.service({
     lock: true,
     text: "Loading",
     background: "rgba(0, 0, 0, 0.7)",

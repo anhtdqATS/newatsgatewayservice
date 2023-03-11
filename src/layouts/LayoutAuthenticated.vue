@@ -14,17 +14,20 @@ import AsideMenu from "@/components/AsideMenu.vue";
 import FooterBar from "@/components/FooterBar.vue";
 import mainApi from "./api/mainApi";
 import { GatewayServiceId } from "../Constants/index.js";
+import Loading from "@/components/Loading.vue";
+
+const store = useMainStore();
 
 const dataLogin = computed(() => JSON.parse(localStorage.getItem("dataLogin")));
 const d = new Date(dataLogin.value.dataTime);
 const time = d.toLocaleString("es-AR");
 
-console.log(dataLogin.value);
-
 useMainStore().setUser({
   userName: dataLogin.value.user,
   time: time,
 });
+
+useMainStore().getGatewayInfo();
 
 const layoutAsidePadding = "xl:pl-60";
 
@@ -42,7 +45,6 @@ router.beforeEach(() => {
 const darkMode = computed(() => {
   return useStyleStore().darkMode;
 });
-console.log(darkMode.value);
 const r = document.querySelector(":root");
 
 const setElementPlusDarkMode = () => {
@@ -127,7 +129,6 @@ const Ping = () => {
     .ping()
     .then(() => {})
     .catch((err) => {
-      console.log(err);
       if (err.response.status === 401) {
         removeSessions();
       }
@@ -173,14 +174,14 @@ onUnmounted(() => clearInterval(isTimer));
         >
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
-        <NavBarItemPlain use-margin>
+        <!-- <NavBarItemPlain use-margin>
           <FormControl
             placeholder="Search (ctrl+k)"
             ctrl-k-focus
             transparent
             borderless
           />
-        </NavBarItemPlain>
+        </NavBarItemPlain> -->
       </NavBar>
       <AsideMenu
         :is-aside-mobile-expanded="isAsideMobileExpanded"
@@ -189,7 +190,9 @@ onUnmounted(() => clearInterval(isTimer));
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
-      <slot />
+      <Loading v-if="useMainStore().isLoading"></Loading>
+
+      <slot v-else />
       <FooterBar>
         Get more with
         <a
