@@ -73,7 +73,14 @@ const routes = [
     name: "Forwarder",
     component: () => import("@/module/forwarder/view/ForwarderView.vue"),
   },
-
+  {
+    meta: {
+      title: "Settings",
+    },
+    path: "/settings",
+    name: "settings",
+    component: () => import("@/module/system/view/SystemView.vue"),
+  },
   {
     meta: {
       title: "About",

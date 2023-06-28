@@ -69,6 +69,12 @@ export default [
   },
   {
     permissions: ["admin", "engineer"],
+    label: "Settings",
+    icon: mdiCogOutline,
+    to: "/settings",
+  },
+  {
+    permissions: ["admin", "engineer"],
     label: "Information",
     icon: mdiInformationOutline,
     menu: [

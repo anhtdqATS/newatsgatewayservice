@@ -18,6 +18,7 @@ export default [
       {
         icon: mdiCogOutline,
         label: "Settings",
+        to: "/settings",
       },
       {
         isDivider: true,

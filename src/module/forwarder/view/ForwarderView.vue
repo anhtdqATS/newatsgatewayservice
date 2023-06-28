@@ -4,9 +4,10 @@ import SectionMain from "@/components/SectionMain.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
 import tableComponent from "../components/table.vue";
 import cmdTypes from "../cmdTypes";
+import { useMainStore } from "@/stores/main.js";
 
 import baseApi from "../api/baseApi";
-
+import Loading from "@/components/Loading.vue";
 import { mdiArrangeBringForward } from "@mdi/js";
 
 const tableDataSerial = ref([]);
@@ -134,7 +135,6 @@ const createTCPForwarder = () => {
 };
 
 const editSerialForwarder = (param, oldName) => {
-  console.log(param);
   delete param.tcpClient;
   param.cmdType = cmdTypes.updateSerialForwarder;
   param.oldName = oldName;
@@ -161,7 +161,7 @@ const editSerialForwarder = (param, oldName) => {
           showClose: true,
           type: "success",
         });
-        dialogVisible.value = false;
+        dialogVisibleSerial.value = false;
       }
     })
     .catch((err) => {
@@ -201,7 +201,7 @@ const editTCPForwarder = (param, oldName) => {
           showClose: true,
           type: "success",
         });
-        dialogVisible.value = false;
+        dialogVisibleTCP.value = false;
       }
     })
     .catch((err) => {
@@ -292,7 +292,7 @@ const deleteTCPForwarder = (index, data) => {
         main
       >
       </SectionTitleLineWithButton>
-      <div class="grid grid-cols-1 2xl:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 gap-6">
         <tableComponent
           title="Serial Forwarder"
           :dataTable="tableDataSerial"
