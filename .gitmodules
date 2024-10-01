@@ -7,3 +7,6 @@
 [submodule "src/module/gatewayLogs"]
 	path = src/module/gatewayLogs
 	url = git@github.com:anhtdqATS/gatewayLogs.git
+[submodule "src/module/RecordeModule"]
+	path = src/module/RecordeModule
+	url = git@github.com:anhtdqATS/RecordeModule.git

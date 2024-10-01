@@ -104,7 +104,18 @@ const openNotification = (err) => {
               class="mt-5"
             >
               <el-form-item prop="user">
-                <el-input v-model="loginForm.user" :prefix-icon="User">
+                <el-input
+                  v-model="loginForm.user"
+                  :prefix-icon="User"
+                  :text-color="'red'"
+                  ref="customInput"
+                  :input-style="{
+                    color: 'black',
+                    'background-color': 'white',
+                    'border-radius':
+                      'var(--el-input-border-radius, var(--el-border-radius-base))',
+                  }"
+                >
                 </el-input>
               </el-form-item>
               <el-form-item prop="password">
@@ -113,6 +124,12 @@ const openNotification = (err) => {
                   v-model="loginForm.password"
                   type="password"
                   @keyup.enter="submit"
+                  :input-style="{
+                    color: 'black',
+                    'background-color': 'white',
+                    'border-radius':
+                      'var(--el-input-border-radius, var(--el-border-radius-base))',
+                  }"
                 />
               </el-form-item>
             </el-form>
@@ -134,6 +151,12 @@ const openNotification = (err) => {
   </LayoutGuest>
 </template>
 <style scoped>
+.el-input__wrapper {
+  border-radius: 0px;
+}
+.el-input__wrapper {
+  color: black;
+}
 /*===transition=== */
 .nested-enter-active,
 .nested-leave-active {
@@ -239,5 +262,6 @@ const openNotification = (err) => {
   position: relative;
   height: 100%;
 }
+
 /* backdrop css */
 </style>

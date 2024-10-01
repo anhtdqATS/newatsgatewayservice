@@ -55,7 +55,14 @@ const routes = [
     name: "serviceLog",
     component: () => import("@/module/gatewayLogs/view/serviceLog.vue"),
   },
-
+  {
+    meta: {
+      title: "ChartViewer",
+    },
+    path: "/chartViewer",
+    name: "ChartViewer",
+    component: () => import("@/module/RecordeModule/view/recorder.vue"),
+  },
   {
     meta: {
       title: "Profile",
@@ -96,6 +103,14 @@ const routes = [
     path: "/license",
     name: "license",
     component: () => import("@/module/Info/view/LicenseView.vue"),
+  },
+  {
+    meta: {
+      title: "ImportExport",
+    },
+    path: "/import-export",
+    name: "import-export",
+    component: () => import("@/module/importExport/view/ImportExportView.vue"),
   },
 ];
 

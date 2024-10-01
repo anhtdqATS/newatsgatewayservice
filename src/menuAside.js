@@ -15,6 +15,7 @@ import {
   mdiSignalCellular2,
   mdiLan,
   mdiCogOutline,
+  mdiChartMultiple,
 } from "@mdi/js";
 
 export default [
@@ -35,6 +36,12 @@ export default [
     to: "/mapping",
     label: "Mapping",
     icon: mdiLanConnect,
+  },
+  {
+    permissions: ["admin", "engineer"],
+    to: "/chartViewer",
+    label: "Chart Viewer",
+    icon: mdiChartMultiple,
   },
   {
     permissions: ["admin", "engineer"],
@@ -71,7 +78,18 @@ export default [
     permissions: ["admin", "engineer"],
     label: "Settings",
     icon: mdiCogOutline,
-    to: "/settings",
+    menu: [
+      {
+        permissions: ["admin", "engineer"],
+        to: "/settings",
+        label: "System",
+      },
+      {
+        permissions: ["admin", "engineer"],
+        to: "/import-export",
+        label: "Import/Export",
+      },
+    ],
   },
   {
     permissions: ["admin", "engineer"],

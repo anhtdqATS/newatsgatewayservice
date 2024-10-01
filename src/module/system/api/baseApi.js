@@ -21,4 +21,13 @@ export default {
   updateMetering(payload) {
     return repository.post(`${resource}`, payload);
   },
+  setChannelDashboard(payload) {
+    return repository.post(`${resource}`, payload);
+  },
+  getChannelList(payload) {
+    return repository.post(`${resource}`, payload);
+  },
+  getDashboardChannel(payload) {
+    return repository.post(`${resource}`, payload);
+  },
 };

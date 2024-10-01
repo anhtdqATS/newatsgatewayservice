@@ -6,4 +6,7 @@ export default {
   setTime: 2012,
   getNTPSetting: 1022,
   updateNTPSetting: 1023,
+  setChannelDashboard: 400,
+  getChannelList: 21,
+  getDashboardChannel: 401,
 };
