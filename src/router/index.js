@@ -20,7 +20,7 @@ const routes = [
     },
     path: "/dashboard",
     name: "dashboard",
-    component: () => import("@/module/dashboard/view/DashboardView.vue"),
+    component: () => import("@/view/home.vue"),
   },
   {
     meta: {

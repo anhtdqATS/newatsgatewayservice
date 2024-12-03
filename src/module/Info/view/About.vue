@@ -63,6 +63,17 @@ const mainStore = useMainStore();
             </template>
             {{ mainStore.gatewayInfo.version }}
           </el-descriptions-item>
+          <el-descriptions-item align="center">
+            <template #label>
+              <div class="cell-item">
+                <el-icon :style="iconStyle">
+                  <office-building />
+                </el-icon>
+                Web Version
+              </div>
+            </template>
+            20241112_01
+          </el-descriptions-item>
         </el-descriptions>
       </div>
     </SectionMain></LayoutAuthenticated
