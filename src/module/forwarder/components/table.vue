@@ -55,7 +55,7 @@ const form = ref({
   tcpServer: {
     endPoints: [
       {
-        address: "",
+        address: "0.0.0.0",
         allow: [],
         port: 0,
         receiveTimeout: 0,
@@ -97,7 +97,7 @@ const handleEdit = (index, data) => {
   if (data.tcpServer.endPoints.length === 0) {
     form.value.tcpServer.endPoints = [
       {
-        address: "",
+        address: "0.0.0.0",
         allow: [],
         port: 0,
         receiveTimeout: 0,
@@ -170,47 +170,36 @@ const handleDelete = (index, data) => {
     <el-table :data="dataTable" :table-layout="tableLayout">
       <el-table-column prop="name" label="Name" width="180" fixed />
       <el-table-column
-        min-width="120"
         v-if="mode === 'Serial Forwarder'"
         prop="serial.baudRate"
         label="Baud Rate"
         align="center"
       />
       <el-table-column
-        min-width="100"
         v-if="mode === 'Serial Forwarder'"
         prop="serial.port"
         label="Active Port"
         align="center"
       />
       <el-table-column
-        min-width="120"
         v-if="mode === 'TCP Forwarder'"
         prop="tcpClient.endPoints[0].address"
         label="Client Address"
         align="center"
       />
       <el-table-column
-        min-width="100"
         v-if="mode === 'TCP Forwarder'"
         prop="tcpClient.endPoints[0].port"
         label="Active Port"
         align="center"
       />
       <el-table-column
-        min-width="100"
         prop="tcpServer.endPoints[0].port"
         label="Server Port"
         width="150"
         align="center"
       />
-      <el-table-column
-        min-width="100"
-        align="center"
-        prop="enabled"
-        label="Status"
-        fixed="right"
-      >
+      <el-table-column prop="enabled" label="Status" fixed="right" width="70">
         <template #default="scope">
           <el-tag
             :type="scope.row.enabled === true ? 'success' : 'danger'"
@@ -219,7 +208,7 @@ const handleDelete = (index, data) => {
           >
         </template>
       </el-table-column>
-      <el-table-column align="center" fixed="right" width="120">
+      <el-table-column align="center" fixed="right" width="100">
         <template #default="scope">
           <el-button
             size="small"

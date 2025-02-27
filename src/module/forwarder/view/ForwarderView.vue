@@ -292,7 +292,7 @@ const deleteTCPForwarder = (index, data) => {
         main
       >
       </SectionTitleLineWithButton>
-      <div class="grid grid-cols-1 gap-6">
+      <div class="grid grid-cols-1 2xl:grid-cols-2 gap-6">
         <tableComponent
           title="Serial Forwarder"
           :dataTable="tableDataSerial"

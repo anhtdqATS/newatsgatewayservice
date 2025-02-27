@@ -72,7 +72,7 @@ const mainStore = useMainStore();
                 Web Version
               </div>
             </template>
-            20241112_01
+            20250224_03
           </el-descriptions-item>
         </el-descriptions>
       </div>

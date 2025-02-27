@@ -23,11 +23,13 @@ export const getXAxisConfig = (textLabelColor) => {
 };
 
 export const tooltipFormatter = function () {
-  var milliseconds = this.x % 1000;
-  var formattedLocalDate = moment(this.x / 1000).format("YYYY-MM-DD HH:mm:ss");
+  // var milliseconds = this.x/ 1000;
+  var formattedLocalDate = moment(this.x / 1000).format(
+    "YYYY-MM-DD HH:mm:ss.SSS"
+  );
   var formattedValue = this.y; // Giá trị của điểm dữ liệu
 
-  var tooltip = `<strong>Time:</strong> ${formattedLocalDate}.${milliseconds}<br>`;
+  var tooltip = `<strong>Time:</strong> ${formattedLocalDate}<br>`;
   tooltip += `<strong>Value:</strong> ${formattedValue}`;
 
   return tooltip;

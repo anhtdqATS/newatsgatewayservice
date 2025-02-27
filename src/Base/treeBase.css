@@ -14,6 +14,8 @@
 }
 .blockTree {
   width: 19%;
+  min-width: 300px; /* Đảm bảo không quá hẹp */
+  overflow-x: auto; /* Bắt buộc hiển thị thanh cuộn ngang khi nội dung tràn */
 }
 .blockList {
   flex: 1; /* adjust automatically */
@@ -24,13 +26,15 @@
   height: auto;
 }
 .el-tree-node {
-  white-space: normal;
+  /* white-space: nowrap; */
   padding: 3px;
 }
 .el-tree {
   background-color: unset !important;
   color: unset !important;
+  min-width: max-content; /* Giữ nguyên độ rộng nội dung */
 }
+
 /* .el-tree-node__content:hover {
   background-color: var(--bg-node-tree);
 }

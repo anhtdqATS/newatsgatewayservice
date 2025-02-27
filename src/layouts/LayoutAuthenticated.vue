@@ -29,16 +29,21 @@ useMainStore().setUser({
 
 useMainStore().getGatewayInfo();
 
-const layoutAsidePadding = "xl:pl-60";
+// const layoutAsidePadding = "xl:pl-60";
 
 const styleStore = useStyleStore();
 const router = useRouter();
 
-const isAsideMobileExpanded = ref(false);
+const isAsideMobileExpanded = ref(
+  sessionStorage.getItem("isAsideMobileExpanded") === "true"
+);
 const isAsideLgActive = ref(false);
+watch(isAsideMobileExpanded, (newValue) => {
+  sessionStorage.setItem("isAsideMobileExpanded", newValue);
+});
+// const isAsideHidden = ref(false);
 let isTimer = null;
 router.beforeEach(() => {
-  isAsideMobileExpanded.value = false;
   isAsideLgActive.value = false;
 });
 
@@ -148,19 +153,16 @@ onUnmounted(() => clearInterval(isTimer));
     }"
   >
     <div
-      :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
+      :class="[{ 'ml-60': isAsideMobileExpanded }]"
       class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
     >
       <NavBar
         :menu="menuNavBar"
-        :class="[
-          layoutAsidePadding,
-          { 'ml-60 lg:ml-0': isAsideMobileExpanded },
-        ]"
+        :class="[layoutAsidePadding, { 'ml-60': isAsideMobileExpanded }]"
         @menu-click="menuClick"
       >
         <NavBarItemPlain
-          display="flex lg:hidden"
+          display="flex"
           @click.prevent="isAsideMobileExpanded = !isAsideMobileExpanded"
         >
           <BaseIcon
@@ -168,19 +170,11 @@ onUnmounted(() => clearInterval(isTimer));
             size="24"
           />
         </NavBarItemPlain>
-        <NavBarItemPlain
+        <!-- <NavBarItemPlain
           display="hidden lg:flex xl:hidden"
           @click.prevent="isAsideLgActive = true"
         >
           <BaseIcon :path="mdiMenu" size="24" />
-        </NavBarItemPlain>
-        <!-- <NavBarItemPlain use-margin>
-          <FormControl
-            placeholder="Search (ctrl+k)"
-            ctrl-k-focus
-            transparent
-            borderless
-          />
         </NavBarItemPlain> -->
       </NavBar>
       <AsideMenu
@@ -190,6 +184,8 @@ onUnmounted(() => clearInterval(isTimer));
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
+      <!-- Menu luôn hiển thị trên màn hình lớn -->
+
       <Loading v-if="useMainStore().isLoading"></Loading>
 
       <slot v-else />
