@@ -158,7 +158,7 @@ onUnmounted(() => clearInterval(isTimer));
     >
       <NavBar
         :menu="menuNavBar"
-        :class="[layoutAsidePadding, { 'ml-60': isAsideMobileExpanded }]"
+        :class="[{ 'ml-60': isAsideMobileExpanded }]"
         @menu-click="menuClick"
       >
         <NavBarItemPlain
