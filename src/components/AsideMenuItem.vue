@@ -6,9 +6,24 @@ import { mdiMinus, mdiPlus } from "@mdi/js";
 import { getButtonColor } from "@/colors.js";
 import BaseIcon from "@/components/BaseIcon.vue";
 import AsideMenuList from "@/components/AsideMenuList.vue";
+const dataLogin = computed(() => JSON.parse(localStorage.getItem("dataLogin")));
+const auth = computed(() => {
+  switch (dataLogin.value.role) {
+    case 0:
+      return "admin";
+    case 10:
+      return "engineer";
+    case 20:
+      return "operator";
+    case 30:
+      return "viewer";
+    case 40:
+      return "cloud";
 
-const auth = "admin";
-
+    default:
+      "none";
+  }
+});
 const props = defineProps({
   item: {
     type: Object,
@@ -50,7 +65,7 @@ const menuClick = (event) => {
 <template>
   <li>
     <component
-      v-if="item.permissions?.includes(auth)"
+      v-if="item.permissions?.length === 0 || item.permissions?.includes(auth)"
       :is="item.to ? RouterLink : 'a'"
       v-slot="vSlot"
       :to="item.to ?? null"

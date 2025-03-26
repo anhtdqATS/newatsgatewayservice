@@ -47,12 +47,26 @@ const login = () => {
           "dataLogin",
           JSON.stringify({
             user: loginForm.user,
-            token: res.data,
+            token: res.data.token,
             dataTime: Date.now(),
+            role: res.data.role,
           })
         );
       }
-      loginApi.setAuthorizationHeaders(res.data);
+      loginApi.setAuthorizationHeaders(res.data.token);
+
+      // if (typeof localStorage !== "undefined") {
+      //   localStorage.setItem(
+      //     "dataLogin",
+      //     JSON.stringify({
+      //       user: loginForm.user,
+      //       token: res.data,
+      //       dataTime: Date.now(),
+      //       role: 10,
+      //     })
+      //   );
+      // }
+      // loginApi.setAuthorizationHeaders(res.data);
       setTimeout(() => {
         router.push("/dashboard");
         loading.close();
@@ -60,7 +74,7 @@ const login = () => {
     })
     .catch((err) => {
       loading.close();
-      openNotification();
+      openNotification("Server error");
     });
 };
 
@@ -72,15 +86,12 @@ const openFullScreenLoading = () => {
     text: "Loading",
     background: "rgba(0, 0, 0, 0.7)",
   });
-  setTimeout(() => {
-    loading.close();
-  }, 3000);
 };
 //login error
-const openNotification = (err) => {
+const openNotification = (mess) => {
   ElNotification({
     title: "Error",
-    message: "Incorrect username or password",
+    message: mess,
     type: "error",
     offset: 100,
   });

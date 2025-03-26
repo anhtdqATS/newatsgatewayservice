@@ -10,10 +10,12 @@ import CardBox from "@/components/CardBox.vue";
 import UserCard from "@/components/UserCard.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+import { useRouter } from "vue-router";
 
 import baseApi from "../api/baseApi";
+const router = useRouter();
 
-const nameLogin = JSON.parse(localStorage.getItem("user"));
+const dataLogin = JSON.parse(localStorage.getItem("dataLogin"));
 
 const labelPosition = ref("top");
 const dialogVisible = ref(false);
@@ -24,6 +26,12 @@ const ruleFormCreateUser = reactive({
   user: "",
   role: 0,
   pass: "",
+  checkPass: "",
+});
+const ruleFormUpdateUserActiveRef = ref();
+const ruleFormUpdateUserActive = reactive({
+  password: "",
+  oldPassword: "",
   checkPass: "",
 });
 
@@ -70,6 +78,27 @@ const validateCheckPassFormEdit = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("Please input the password again"));
   } else if (value !== ruleFormEditUser.pass) {
+    callback(new Error("Re-Password inputs don't match!"));
+  } else {
+    callback();
+  }
+};
+
+const validatePassFormUpdateActive = (rule, value, callback) => {
+  if (value === "") {
+    callback(new Error("Please input the password"));
+  } else {
+    if (ruleFormUpdateUserActive.checkPass !== "") {
+      if (!ruleFormUpdateUserActiveRef.value) return;
+      ruleFormUpdateUserActiveRef.value.validateField("checkPass", () => null);
+    }
+    callback();
+  }
+};
+const validateCheckPassFormUpdateActve = (rule, value, callback) => {
+  if (value === "") {
+    callback(new Error("Please input the password again"));
+  } else if (value !== ruleFormUpdateUserActive.password) {
     callback(new Error("Re-Password inputs don't match!"));
   } else {
     callback();
@@ -125,6 +154,31 @@ const rulesEdit = reactive({
   ],
 });
 
+const rulesUpdateUserActive = reactive({
+  oldPassword: [
+    {
+      required: true,
+      message: "Please input Old Password",
+      trigger: "blur",
+    },
+  ],
+  password: [
+    {
+      required: true,
+      validator: validatePassFormUpdateActive,
+      trigger: "blur",
+    },
+    { min: 6, max: 16, message: "Length should min 6", trigger: "blur" },
+  ],
+  checkPass: [
+    {
+      required: true,
+      validator: validateCheckPassFormUpdateActve,
+      trigger: "blur",
+    },
+  ],
+});
+
 // # Create new User
 const resetFormCreate = (formEl) => {
   if (!formEl) return;
@@ -177,7 +231,6 @@ const handleEdit = (index, data) => {
 };
 
 const submitFormEdit = () => {
-  console.log(ruleFormEditUserRef);
   ruleFormEditUserRef.value.validate((valid, fields) => {
     if (valid) {
       updateUser();
@@ -265,6 +318,32 @@ const deleteUser = (user) => {
     });
 };
 
+// update user active
+const submitUpdateUserActive = () => {
+  let dataLoad = {
+    oldPassword: ruleFormUpdateUserActive.oldPassword,
+    password: ruleFormUpdateUserActive.password,
+  };
+  baseApi
+    .updateUserActive(dataLoad)
+    .then((res) => {
+      ElMessage({
+        message: "Update success",
+        grouping: true,
+        showClose: true,
+        type: "success",
+      });
+    })
+    .catch((err) => {
+      ElMessage({
+        message: err,
+        grouping: true,
+        showClose: true,
+        type: "error",
+      });
+      false;
+    });
+};
 // # Get list User
 const getListUser = async () => {
   await baseApi
@@ -289,6 +368,7 @@ const getListUser = async () => {
       false;
     });
 };
+
 getListUser();
 </script>
 
@@ -300,7 +380,10 @@ getListUser();
 
       <UserCard class="mb-6" />
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div
+        v-if="dataLogin.role === 0"
+        class="grid grid-cols-1 lg:grid-cols-3 gap-6"
+      >
         <CardBox class="lg:col-span-2">
           <SectionTitleLineWithButton
             :icon="mdiFormatListBulletedSquare"
@@ -356,6 +439,7 @@ getListUser();
                 v-model="ruleFormCreateUser.pass"
                 type="password"
                 autocomplete="off"
+                show-password
               />
             </el-form-item>
             <el-form-item label="Confirm" prop="checkPass">
@@ -363,6 +447,7 @@ getListUser();
                 v-model="ruleFormCreateUser.checkPass"
                 type="password"
                 autocomplete="off"
+                show-password
               />
             </el-form-item>
             <div class="2xl:flex justify-between items-end">
@@ -387,6 +472,52 @@ getListUser();
           </el-form>
         </CardBox>
       </div>
+      <div v-else>
+        <CardBox>
+          <SectionTitleLineWithButton
+            :icon="mdiAccountPlus"
+            title="Update User"
+          >
+          </SectionTitleLineWithButton>
+          <el-form
+            ref="ruleFormUpdateUserActiveRef"
+            :model="ruleFormUpdateUserActive"
+            :rules="rulesUpdateUserActive"
+            :label-position="labelPosition"
+            status-icon
+          >
+            <el-form-item label="Old Password" prop="pass">
+              <el-input
+                v-model="ruleFormUpdateUserActive.oldPassword"
+                type="password"
+                autocomplete="off"
+                show-password
+              />
+            </el-form-item>
+            <el-form-item label="Password" prop="pass">
+              <el-input
+                v-model="ruleFormUpdateUserActive.password"
+                type="password"
+                autocomplete="off"
+                show-password
+              />
+            </el-form-item>
+            <el-form-item label="Confirm" prop="checkPass">
+              <el-input
+                v-model="ruleFormUpdateUserActive.checkPass"
+                type="password"
+                autocomplete="off"
+                show-password
+              />
+            </el-form-item>
+            <div class="flex justify-end gap-2">
+              <el-button type="success" @click="submitUpdateUserActive()"
+                >Submit</el-button
+              >
+            </div>
+          </el-form>
+        </CardBox>
+      </div>
     </SectionMain>
     <!-- ============= dialog update user ==============   -->
     <el-dialog v-model="dialogVisible" title="Edit User" width="30%">
@@ -406,6 +537,7 @@ getListUser();
             v-model="ruleFormEditUser.pass"
             type="password"
             autocomplete="off"
+            show-password
           />
         </el-form-item>
         <el-form-item label="Confirm" prop="checkPass">
@@ -413,6 +545,7 @@ getListUser();
             v-model="ruleFormEditUser.checkPass"
             type="password"
             autocomplete="off"
+            show-password
           />
         </el-form-item>
       </el-form>

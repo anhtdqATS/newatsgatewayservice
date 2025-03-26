@@ -5,6 +5,7 @@ const axiosInstance = axios.create({
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
+  timeout: 15000,
 });
 let dataLogin = JSON.parse(localStorage.getItem("dataLogin"));
 if (dataLogin !== null) {

@@ -63,12 +63,8 @@ export const useMainStore = defineStore("main", {
         .getGatewayInfo(dataLoad)
         .then((res) => {
           if (res.data.error.length > 0) {
-            ElMessage({
-              message: "Data not return",
-              grouping: true,
-              showClose: true,
-              type: "warning",
-            });
+            console.log(res.data.error);
+            
           } else {
             this.gatewayInfo = res.data.payload;
             localStorage.setItem("nameGateway", res.data.payload.name);
@@ -142,12 +138,8 @@ export const useMainStore = defineStore("main", {
         .getLicenseInfo(dataLoad)
         .then((res) => {
           if (res.data.error.length > 0) {
-            ElMessage({
-              message: "Data not return",
-              grouping: true,
-              showClose: true,
-              type: "warning",
-            });
+            console.log(res.data.error);
+            
           } else {
             return res.data.payload.licInfo;
           }

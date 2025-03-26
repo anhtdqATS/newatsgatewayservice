@@ -3,16 +3,9 @@ import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
 import SectionMain from "@/components/SectionMain.vue";
 
-import CardBox from "@/components/CardBox.vue";
 import { useMainStore } from "@/stores/main.js";
-import { genFileId } from "element-plus";
 
 import { mdiInformationOutline } from "@mdi/js";
-import { GatewayServiceId } from "@/Constants/index.js";
-
-import baseApi from "../api/baseApi";
-import cmdTypes from "../cmdTypes";
-import { UploadFilled } from "@element-plus/icons-vue";
 
 const mainStore = useMainStore();
 </script>
@@ -72,7 +65,7 @@ const mainStore = useMainStore();
                 Web Version
               </div>
             </template>
-            20250303_01
+            20250320_DEV
           </el-descriptions-item>
         </el-descriptions>
       </div>

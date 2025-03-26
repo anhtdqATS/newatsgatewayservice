@@ -20,41 +20,41 @@ import {
 
 export default [
   {
-    permissions: ["admin", "engineer"],
+    permissions: [],
     to: "/dashboard",
     icon: mdiMonitor,
     label: "Dashboard",
   },
   {
-    permissions: ["admin", "engineer"],
+    permissions: ["engineer"],
     to: "/channel",
     label: "Channel",
     icon: mdiBookCogOutline,
   },
   {
-    permissions: ["admin", "engineer"],
+    permissions: ["engineer"],
     to: "/mapping",
     label: "Mapping",
     icon: mdiLanConnect,
   },
   {
-    permissions: ["admin", "engineer"],
+    permissions: ["engineer", "operator", "viewer", "cloud"],
     to: "/chartViewer",
     label: "Chart Viewer",
     icon: mdiChartMultiple,
   },
   {
-    permissions: ["admin", "engineer"],
+    permissions: ["engineer", "operator", "viewer", "cloud"],
     label: "Logs",
     icon: mdiViewList,
     menu: [
       {
-        permissions: ["admin", "engineer"],
+        permissions: [],
         to: "/sessionLog",
         label: "Session Log",
       },
       {
-        permissions: ["admin", "engineer"],
+        permissions: [],
         to: "/serviceLog",
         label: " Service Log",
       },
@@ -62,14 +62,14 @@ export default [
   },
 
   {
-    permissions: ["admin", "engineer"],
+    permissions: ["engineer", "operator", "viewer", "cloud"],
     to: "/forwarder",
     label: "Forwarder",
     icon: mdiArrangeBringForward,
   },
 
   {
-    permissions: ["admin", "engineer"],
+    permissions: [],
     to: "/profile",
     label: "Profile",
     icon: mdiAccountCircle,
@@ -80,29 +80,29 @@ export default [
     icon: mdiCogOutline,
     menu: [
       {
-        permissions: ["admin", "engineer"],
+        permissions: [ "admin","engineer"],
         to: "/settings",
         label: "System",
       },
       {
-        permissions: ["admin", "engineer"],
+        permissions: ["admin","engineer"],
         to: "/import-export",
         label: "Import/Export",
       },
     ],
   },
   {
-    permissions: ["admin", "engineer"],
+    permissions: [],
     label: "Information",
     icon: mdiInformationOutline,
     menu: [
       {
-        permissions: ["admin", "engineer"],
+        permissions: [],
         to: "/About",
         label: "About",
       },
       {
-        permissions: ["admin", "engineer"],
+        permissions: [],
         to: "/license",
         label: "License",
       },

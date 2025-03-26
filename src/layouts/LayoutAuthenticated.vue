@@ -134,9 +134,10 @@ const Ping = () => {
     .ping()
     .then(() => {})
     .catch((err) => {
-      if (err.response.status === 401) {
-        removeSessions();
-      }
+      removeSessions();
+      // if (err.response.status === 401) {
+      //   removeSessions();
+      // }
     });
 };
 onMounted(() => {

@@ -38,7 +38,6 @@ const getDashboardChannel = async () => {
 const initData = async () => {
   await getDashboardChannel();
   listTypeChannel.value = await getChannels();
-  console.log(listTypeChannel.value, " listTypeChannel.value");
   listTypeChannel.value.push({
     name: "None",
     objectId: "None",
