@@ -13,6 +13,7 @@ import { Cpu, UploadFilled, InfoFilled } from "@element-plus/icons-vue";
 import baseApi from "../api/baseApi";
 import { useMainStore } from "@/stores/main.js";
 // useMainStore().getLicenseInfo();
+const dataLogin = JSON.parse(localStorage.getItem("dataLogin"));
 const machineCode = ref();
 const licenseInfo1 = ref([]);
 const licenseInfo2 = ref([]);
@@ -255,7 +256,7 @@ const loading = ref(true);
             <el-table v-loading="loading" style="width: 100%"> </el-table>
           </div>
         </CardBox>
-        <CardBox>
+        <CardBox v-if="dataLogin.role === 0">
           <el-link type="primary" disabled>Upload License</el-link>
           <el-upload
             ref="upload"
